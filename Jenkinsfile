@@ -23,18 +23,18 @@ pipeline {
                 """
             }
          }
-         stage("Push the changed deployment file to GitHub") {
+        stage("Push the changed deployment file to GitHub") {
             steps {
-                sh """
-                    git config --global user.name "Monalisha1991"
-                    git config --global user.email "mbehera.16051991@gmail.com"
-                    git add deployment.yaml
-                    git commit -m "Updated Deployment Manifest"
-                """
-                withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
-                    sh "git push https://github.com/Monalisha1991/a-reddit-clone-gitops main"
-                }
-            }
-         }
+        withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+            sh """
+                git config --global user.name "Monalisha1991"
+                git config --global user.email "mbehera.16051991@gmail.com"
+                git add deployment.yaml
+                git commit -m "Updated Deployment Manifest"
+                git push
+            """
+        }
+    }
+}
     }
 }
